@@ -42,11 +42,11 @@ background: blue;
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background:rgb(0, 0, 0);
-color : white;</string>
+     <string notr="true">color: rgb(0, 0, 0);
+</string>
     </property>
     <property name="text">
-     <string>beat</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_18">
@@ -64,7 +64,7 @@ color : white;
 border-color: white;</string>
     </property>
     <property name="text">
-     <string>beat</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_19">
@@ -81,7 +81,7 @@ border-color: white;</string>
 color : white;</string>
     </property>
     <property name="text">
-     <string>beat</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_20">
@@ -98,7 +98,7 @@ color : white;</string>
 color : white;</string>
     </property>
     <property name="text">
-     <string>beat</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_21">
@@ -115,7 +115,7 @@ color : white;</string>
 color : white;</string>
     </property>
     <property name="text">
-     <string>beat</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_22">
@@ -132,7 +132,7 @@ color : white;</string>
 color : white;</string>
     </property>
     <property name="text">
-     <string>beat</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_23">
@@ -149,7 +149,7 @@ color : white;</string>
 color : white;</string>
     </property>
     <property name="text">
-     <string>beat</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_24">
@@ -166,7 +166,7 @@ color : white;</string>
 color : white;</string>
     </property>
     <property name="text">
-     <string>beat</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_25">
@@ -185,7 +185,7 @@ border-color: rgb(255, 255, 255);
 border-thickness:10px;</string>
     </property>
     <property name="text">
-     <string>beat</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_26">
@@ -202,7 +202,7 @@ border-thickness:10px;</string>
 color : white;</string>
     </property>
     <property name="text">
-     <string>beat</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_27">
@@ -219,7 +219,7 @@ color : white;</string>
 color : white;</string>
     </property>
     <property name="text">
-     <string>beat</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_28">
@@ -236,7 +236,7 @@ color : white;</string>
 color : white;</string>
     </property>
     <property name="text">
-     <string>beat</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_29">
@@ -253,7 +253,7 @@ color : white;</string>
 color : white;</string>
     </property>
     <property name="text">
-     <string>beat</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_30">
@@ -270,7 +270,7 @@ color : white;</string>
 color : white;</string>
     </property>
     <property name="text">
-     <string>beat</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_31">
@@ -287,7 +287,7 @@ color : white;</string>
 color : white;</string>
     </property>
     <property name="text">
-     <string>beat</string>
+     <string/>
     </property>
    </widget>
   </widget>
