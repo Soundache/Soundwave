@@ -3,6 +3,7 @@ from PyQt5 import uic
 import sys
 from mido import Message, MidiFile, MidiTrack
 import pygame as pyg
+import time
 from pygame import midi
 
 # mid = MidiFile()
@@ -14,15 +15,20 @@ from pygame import midi
 # track.append(Message('note_off', note=64, velocity=127, time=32))
 # mid.save('song.mid')
 
-pyg.init()
-pyg.mixer.music.load('song1.mid')
-pyg.mixer.music.play()
+# pyg.init()
+# pyg.mixer.music.load('song1.mid')
+# pyg.mixer.music.play()
 
 midi.init()
-out = midi.Output()
-out.set_instrument(40)
-out.note_on(21)
-out.note_off(21)
+out = midi.Output(midi.get_default_output_id(), 0)
+
+
+def play(instrument=0, note=72, duration=1.3):
+    out.set_instrument(instrument)
+    out.note_on(note, 127)
+    time.sleep(duration)
+    out.note_off(note, 127)
+
 
 app = QApplication(sys.argv)
 
