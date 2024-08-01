@@ -29,7 +29,10 @@ class UI(QMainWindow):
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key.Key_C:
-            play(self.instrument, 74)
+            if event.modifiers() == Qt.Key.Key_Shift:
+                play(self.instrument, 75)
+            else:
+                play(self.instrument, 74)
         if event.key() == Qt.Key.Key_D:
             play(self.instrument, 76)
         if event.key() == Qt.Key.Key_E:
@@ -42,6 +45,7 @@ class UI(QMainWindow):
             play(self.instrument, 83)
         if event.key() == Qt.Key.Key_B:
             play(self.instrument, 85)
+
         # if event.key() == Qt.Key.Key_c1:
         #     play(self.instrument, 86)
 
