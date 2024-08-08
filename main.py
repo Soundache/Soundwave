@@ -4,18 +4,8 @@ from PyQt5 import uic
 import sys
 from mido import Message, MidiFile, MidiTrack
 import time
+import asyncio
 from pygame import midi
-
-midi.init()
-out = midi.Output(midi.get_default_output_id(), 0)
-
-
-def play(instrument=0, note=72, duration=0.2):
-    out.set_instrument(instrument)
-    out.note_on(note, 127)
-    time.sleep(duration)
-    out.note_off(note, 127)
-
 
 app = QApplication(sys.argv)
 
@@ -26,28 +16,39 @@ class UI(QMainWindow):
         uic.loadUi('prototype1.ui', self)
         self.show()
         self.instrument = 0
+        k = Qt.Key
+        self.keys = {
+            k.Key_C: 74,
+            k.Key_D: 76,
+            k.Key_E: 78,
+            k.Key_F: 79,
+            k.Key_G: 81,
+            k.Key_A: 83,
+            k.Key_B: 85
+        }
+        midi.init()
+        self.out = midi.Output(midi.get_default_output_id(), 0)
+        self.out.set_instrument(self.instrument)
+        self.tasks = []
+
+    async def play(self, instrument=0, note=72, duration=0.2):
+        self.out.set_instrument(instrument)
+        self.out.note_on(note, 127)
+        await asyncio.sleep(duration)
+        self.out.note_off(note, 127)
 
     def keyPressEvent(self, event):
-        if event.key() == Qt.Key.Key_C:
-            if event.modifiers() == Qt.Key.Key_Shift:
-                play(self.instrument, 75)
-            else:
-                play(self.instrument, 74)
-        if event.key() == Qt.Key.Key_D:
-            play(self.instrument, 76)
-        if event.key() == Qt.Key.Key_E:
-            play(self.instrument, 78)
-        if event.key() == Qt.Key.Key_F:
-            play(self.instrument, 79)
-        if event.key() == Qt.Key.Key_G:
-            play(self.instrument, 81)
-        if event.key() == Qt.Key.Key_A:
-            play(self.instrument, 83)
-        if event.key() == Qt.Key.Key_B:
-            play(self.instrument, 85)
-
-        # if event.key() == Qt.Key.Key_c1:
-        #     play(self.instrument, 86)
+        m = Qt.KeyboardModifier
+        if self.keys.get(event.key()):
+            note = self.keys[event.key()]
+            if event.modifiers() == m.AltModifier:
+                note += 1
+            elif event.modifiers() == m.ControlModifier:
+                note -= 1
+            if event.modifiers() == m.ShiftModifier:
+                note += (87-74)
+            task = asyncio.run(self.play(self.instrument, note))
+            self.tasks.append(task)
 
 
 window = UI()
