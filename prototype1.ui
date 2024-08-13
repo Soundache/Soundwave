@@ -43,7 +43,8 @@ background: blue;
     </property>
     <property name="styleSheet">
      <string notr="true">color: rgb(0, 0, 0);
-</string>
+border-image: url(piano.jpg) no-repeat center center fixed;
+background-size: cover;</string>
     </property>
     <property name="text">
      <string/>
@@ -77,8 +78,9 @@ border-color: white;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background:rgb(0, 0, 0);
-color : white;</string>
+     <string notr="true">color: rgb(0, 0, 0);
+border-image: url(drums.jpg) no-repeat center center fixed;
+background-size: cover;</string>
     </property>
     <property name="text">
      <string/>
@@ -145,8 +147,8 @@ color : white;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background:rgb(0, 0, 0);
-color : white;</string>
+     <string notr="true">color: rgb(0, 0, 0);
+background: rgb(0, 0, 0);</string>
     </property>
     <property name="text">
      <string/>
