@@ -9,7 +9,7 @@ import asyncio
 from pygame import midi
 
 app = QApplication(sys.argv)
-
+k = Qt.Key
 
 class UI(QMainWindow):
     def __init__(self):
@@ -17,8 +17,28 @@ class UI(QMainWindow):
         #uic.loadUi('prototype1.ui', self)
         self.setupUi(self)
         self.show()
+        self.piano()
+        midi.init()
+        self.out = midi.Output(midi.get_default_output_id(), 0)
+        self.out.set_instrument(self.instrument)
+        self.tasks = []
+
+    def drums(self):
+        self.channel = 9
+        self.keys = {
+            k.Key_C: 35,
+            k.Key_D: 46,
+            k.Key_E: 36,
+            k.Key_F: 50,
+            k.Key_G: 44,
+            k.Key_A: 64,
+            k.Key_B: 59
+        }
         self.instrument = 116
-        k = Qt.Key
+
+    def piano(self):
+        self.channel = 0
+        self.instrument = 0
         self.keys = {
             k.Key_C: 74,
             k.Key_D: 76,
@@ -26,18 +46,31 @@ class UI(QMainWindow):
             k.Key_F: 79,
             k.Key_G: 81,
             k.Key_A: 83,
-            k.Key_B: 85
+            k.Key_B: 85,
+            k.Key_S: 86,
+            k.Key_R: 88
         }
-        midi.init()
-        self.out = midi.Output(midi.get_default_output_id(), 0)
-        self.out.set_instrument(self.instrument)
-        self.tasks = []
+
+    def guitar(self):
+        self.channel = 0
+        self.instrument = 28
+        self.keys = {
+            k.Key_C: 74,
+            k.Key_D: 76,
+            k.Key_E: 78,
+            k.Key_F: 79,
+            k.Key_G: 81,
+            k.Key_A: 83,
+            k.Key_B: 85,
+            k.Key_S: 86,
+            k.Key_R: 88
+        }
 
     async def play(self, instrument=0, note=72, duration=0.2):
         self.out.set_instrument(instrument)
-        self.out.note_on(note, 127, 9)
+        self.out.note_on(note, 127, self.channel)
         await asyncio.sleep(duration)
-        self.out.note_off(note, 127, 9)
+        self.out.note_off(note, 127, self.channel)
 
     def keyPressEvent(self, event):
         m = Qt.KeyboardModifier
@@ -53,6 +86,8 @@ class UI(QMainWindow):
                 note -= (87-74)
             task = asyncio.run(self.play(self.instrument, note))
             self.tasks.append(task)
+
+    def setupUi(self, MainWindow):
         # -*- coding: utf-8 -*-
 
         ################################################################################
@@ -62,12 +97,11 @@ class UI(QMainWindow):
         ##
         ## WARNING! All changes made in this file will be lost when recompiling UI file!
         ################################################################################
-    def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(892, 817)
-        MainWindow.setStyleSheet(u"/* background: url(bg.jpg)*/\n"
-"background: blue;\n"
+        MainWindow.setStyleSheet(u"/*background: url(bg.jpg);*/\n"
+        "background: blue;\n"
 "")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -80,20 +114,28 @@ class UI(QMainWindow):
         self.pushButton_17.setObjectName(u"pushButton_17")
         self.pushButton_17.setGeometry(QRect(160, 220, 101, 101))
         self.pushButton_17.setStyleSheet(u"color: rgb(0, 0, 0);\n"
-"border-image: url(piano.jpg) no-repeat center center fixed;\n"
-"background-size: cover;")
+"border-image: url(piano.jpg) no-repeat center center fixed;\n")
+
+        self.pushButton_17.clicked.connect(self.piano)
+
         self.pushButton_18 = QPushButton(self.centralwidget)
         self.pushButton_18.setObjectName(u"pushButton_18")
         self.pushButton_18.setGeometry(QRect(160, 440, 101, 101))
         self.pushButton_18.setStyleSheet(u"background:rgb(0, 0, 0);\n"
 "color : white;\n"
-"border-color: white;")
+"border-color: white;"
+"border-image: url(guitar.jfif) no-repeat center center fixed;\n")
+
+        self.pushButton_18.clicked.connect(self.guitar)
+
         self.pushButton_19 = QPushButton(self.centralwidget)
         self.pushButton_19.setObjectName(u"pushButton_19")
         self.pushButton_19.setGeometry(QRect(160, 330, 101, 101))
         self.pushButton_19.setStyleSheet(u"color: rgb(0, 0, 0);\n"
-"border-image: url(drums.jpg) no-repeat center center fixed;\n"
-"background-size: cover;")
+"border-image: url(drums.jpg) no-repeat center center fixed;\n")
+
+        self.pushButton_19.clicked.connect(self.drums)
+
         self.pushButton_20 = QPushButton(self.centralwidget)
         self.pushButton_20.setObjectName(u"pushButton_20")
         self.pushButton_20.setGeometry(QRect(270, 440, 101, 101))
@@ -125,7 +167,7 @@ class UI(QMainWindow):
         self.pushButton_25.setStyleSheet(u"background:rgb(0, 0, 0);\n"
 "color : white;\n"
 "border-color: rgb(255, 255, 255);\n"
-"border-thickness:10px;")
+"border:10px;")
         self.pushButton_26 = QPushButton(self.centralwidget)
         self.pushButton_26.setObjectName(u"pushButton_26")
         self.pushButton_26.setGeometry(QRect(490, 440, 101, 101))
