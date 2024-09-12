@@ -26,9 +26,9 @@ class UI(QMainWindow):
     def drums(self):
         self.channel = 9
         self.keys = {
-            k.Key_C: 35,
+            k.Key_C: 40,
             k.Key_D: 46,
-            k.Key_E: 36,
+            k.Key_E: 62,
             k.Key_F: 50,
             k.Key_G: 44,
             k.Key_A: 64,
@@ -51,7 +51,7 @@ class UI(QMainWindow):
             k.Key_R: 88
         }
 
-    def guitar(self):
+    def electricguitar(self):
         self.channel = 0
         self.instrument = 28
         self.keys = {
@@ -65,6 +65,37 @@ class UI(QMainWindow):
             k.Key_S: 86,
             k.Key_R: 88
         }
+
+    def violin(self):
+        self.channel = 0
+        self.instrument = 40
+        self.keys = {
+            k.Key_C: 74,
+            k.Key_D: 76,
+            k.Key_E: 78,
+            k.Key_F: 79,
+            k.Key_G: 81,
+            k.Key_A: 83,
+            k.Key_B: 85,
+            k.Key_S: 86,
+            k.Key_R: 88
+        }   
+
+    def guitar(self):
+        self.channel = 0
+        self.instrument = 25
+        self.keys = {
+            k.Key_C: 74,
+            k.Key_D: 76,
+            k.Key_E: 78,
+            k.Key_F: 79,
+            k.Key_G: 81,
+            k.Key_A: 83,
+            k.Key_B: 85,
+            k.Key_S: 86,
+            k.Key_R: 88
+        }
+
 
     async def play(self, instrument=0, note=72, duration=0.2):
         self.out.set_instrument(instrument)
@@ -82,7 +113,7 @@ class UI(QMainWindow):
                 note -= 1
             if event.modifiers() == m.ShiftModifier:
                 note += (87-74)
-            elif event.modifiers() == m.NoModifier:
+            elif event.modifiers() == m.MetaModifier:
                 note -= (87-74)
             task = asyncio.run(self.play(self.instrument, note))
             self.tasks.append(task)
@@ -126,7 +157,7 @@ class UI(QMainWindow):
 "border-color: white;"
 "border-image: url(guitar.jfif) no-repeat center center fixed;\n")
 
-        self.pushButton_18.clicked.connect(self.guitar)
+        self.pushButton_18.clicked.connect(self.electricguitar)
 
         self.pushButton_19 = QPushButton(self.centralwidget)
         self.pushButton_19.setObjectName(u"pushButton_19")
@@ -140,17 +171,23 @@ class UI(QMainWindow):
         self.pushButton_20.setObjectName(u"pushButton_20")
         self.pushButton_20.setGeometry(QRect(270, 440, 101, 101))
         self.pushButton_20.setStyleSheet(u"background:rgb(0, 0, 0);\n"
+        "border-image: url(violin.jpg) no-repeat center center fixed;\n"
 "color : white;")
+
+        self.pushButton_20.clicked.connect(self.violin)
+
         self.pushButton_21 = QPushButton(self.centralwidget)
         self.pushButton_21.setObjectName(u"pushButton_21")
         self.pushButton_21.setGeometry(QRect(490, 220, 101, 101))
         self.pushButton_21.setStyleSheet(u"background:rgb(0, 0, 0);\n"
-"color : white;")
+)
+
+        self.pushButton_21.clicked.connect(self.guitar) 
+       
         self.pushButton_22 = QPushButton(self.centralwidget)
         self.pushButton_22.setObjectName(u"pushButton_22")
         self.pushButton_22.setGeometry(QRect(380, 220, 101, 101))
-        self.pushButton_22.setStyleSheet(u"background:rgb(0, 0, 0);\n"
-"color : white;")
+        self.pushButton_22.setStyleSheet(u"background:rgb(0, 0, 0);\n")
         self.pushButton_23 = QPushButton(self.centralwidget)
         self.pushButton_23.setObjectName(u"pushButton_23")
         self.pushButton_23.setGeometry(QRect(270, 220, 101, 101))
